@@ -13,23 +13,12 @@ const images = [
   },
 ];
 
-const galleryEl = document.querySelector(".gallery");
-galleryEl.style.display = "flex";
-galleryEl.style.border = "1px solid tomato";
-galleryEl.style.listStyle = "none";
-
-const arrayGalleryEl = [];
-
-for (const item of images) {
-  const itemCreateEl = document.createElement("li");
-  const imgCreateEl = document.createElement("img");
-  imgCreateEl.src = item.url;
-  imgCreateEl.alt = item.alt;
-  imgCreateEl.style.width = "200px";
-
-  itemCreateEl.appendChild(imgCreateEl);
-
-  arrayGalleryEl.push(itemCreateEl);
-}
-
-galleryEl.append(...arrayGalleryEl);
+const createGalleryItem = ({ url, alt }) =>
+  `<li><img src="${url}" alt="${alt}" width = 200 height = 150></li>`;
+const galleryMarkup = images.reduce(
+  (acc, item) => acc + createGalleryItem(item),
+  ""
+);
+const galleryList = document.querySelector(".gallery");
+galleryList.insertAdjacentHTML("afterbegin", galleryMarkup);
+galleryList.setAttribute("style", "list-style-type:none; display: flex;");
